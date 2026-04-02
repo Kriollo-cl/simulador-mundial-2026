@@ -51,6 +51,45 @@ function Flag({ team }: { team: string }) {
     />
   );
 }
+function ExportFlag({ team }: { team: string }) {
+  const code = teamFlagCodes[team];
+
+  if (!code) {
+    return (
+      <span
+        style={{
+          display: "inline-flex",
+          width: "24px",
+          height: "16px",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "3px",
+          background: "#262626",
+          color: "#a3a3a3",
+          fontSize: "10px",
+          flexShrink: 0,
+        }}
+      >
+        ?
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={`https://flagcdn.com/24x18/${code}.png`}
+      alt={`Bandera de ${team}`}
+      crossOrigin="anonymous"
+      style={{
+        width: "24px",
+        height: "16px",
+        objectFit: "cover",
+        borderRadius: "3px",
+        flexShrink: 0,
+      }}
+    />
+  );
+}
 
 export default function ResumenPage() {
   const [data, setData] = useState<MundialData | null>(null);
@@ -331,15 +370,19 @@ const descargarImagen = async () => {
         </div>
 
         <div
-          style={{
-            fontSize: "42px",
-            fontWeight: 800,
-            color: "#f5d76e",
-            marginBottom: "20px",
-          }}
-        >
-          {campeon}
-        </div>
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+    fontSize: "42px",
+    fontWeight: 800,
+    color: "#f5d76e",
+    marginBottom: "20px",
+  }}
+>
+  {campeon !== "Por definir" && <ExportFlag team={campeon} />}
+  <span>{campeon}</span>
+</div>
 
         <div
           style={{
@@ -370,15 +413,19 @@ const descargarImagen = async () => {
 
             <div style={{ display: "grid", gap: "8px" }}>
               <div
-                style={{
-                  border: "1px solid #262626",
-                  borderRadius: "12px",
-                  padding: "10px 12px",
-                  background: "#0a0a0a",
-                }}
-              >
-                {finalista1}
-              </div>
+  style={{
+    border: "1px solid #262626",
+    borderRadius: "12px",
+    padding: "10px 12px",
+    background: "#0a0a0a",
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+  }}
+>
+  {finalista1 !== "Por definir" && <ExportFlag team={finalista1} />}
+  <span>{finalista1}</span>
+</div>
               <div
                 style={{
                   border: "1px solid #262626",
@@ -413,15 +460,19 @@ const descargarImagen = async () => {
             </div>
 
             <div
-              style={{
-                border: "1px solid #262626",
-                borderRadius: "12px",
-                padding: "10px 12px",
-                background: "#0a0a0a",
-              }}
-            >
-              {tercerLugar}
-            </div>
+  style={{
+    border: "1px solid #262626",
+    borderRadius: "12px",
+    padding: "10px 12px",
+    background: "#0a0a0a",
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+  }}
+>
+  {tercerLugar !== "Por definir" && <ExportFlag team={tercerLugar} />}
+  <span>{tercerLugar}</span>
+</div>
           </div>
         </div>
       </div>
@@ -450,16 +501,20 @@ const descargarImagen = async () => {
           {semifinalistas.length > 0 ? (
             semifinalistas.map((team) => (
               <div
-                key={team}
-                style={{
-                  border: "1px solid #262626",
-                  borderRadius: "12px",
-                  padding: "10px 12px",
-                  background: "#0a0a0a",
-                }}
-              >
-                {team}
-              </div>
+  key={team}
+  style={{
+    border: "1px solid #262626",
+    borderRadius: "12px",
+    padding: "10px 12px",
+    background: "#0a0a0a",
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+  }}
+>
+  <ExportFlag team={team} />
+  <span>{team}</span>
+</div>
             ))
           ) : (
             <div
@@ -540,14 +595,18 @@ const descargarImagen = async () => {
               </div>
 
               <div
-                style={{
-                  fontSize: "18px",
-                  fontWeight: 700,
-                  marginBottom: "8px",
-                }}
-              >
-                {equipo.equipo}
-              </div>
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    fontSize: "18px",
+    fontWeight: 700,
+    marginBottom: "8px",
+  }}
+>
+  <ExportFlag team={equipo.equipo} />
+  <span>{equipo.equipo}</span>
+</div>
 
               <div
                 style={{
